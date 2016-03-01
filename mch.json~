@@ -1,0 +1,371 @@
+{
+    "rooms":
+    [
+	{
+	    "id": "Start",
+	    "description": "It is a Wednesday. You are sitting in your office cubicle. You can't see any of your coworkers, but you can hear their furious typing and clicking and the occasional thuds of mugs being set down and pushed aside. There is a beautiful poster of a turkey tacked onto your cube's wall. You'd like to ponder it's meaning, but you can't. You have too many deadlines. GET TO WORK.
+
+Type GET TO WORK to begin, and don't forget to check your inventory!",
+	    "items": [],
+	    "points": 0,
+	    "exits": [
+		{
+		    "direction": "get to work",
+		    "room": "CUBICLE 1",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "CUBICLE 1",
+	    "description": "You need to fill out lots of paperwork. It must be done. It's God's work. You're doing God's work. The books you're working on will never be published without lots of paperwork. 
+
+If you want to keep your job, you should probably buckle down and KEEP WORKING. Hah, all that paperwork won't fill out itself!
+
+If you need some coffee, head to the PANTRY.",
+	    "items": ["TODO LIST"],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "KEEP WORKING",
+		    "room": "CUBICLE 2",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "PANTRY",
+		    "room": "PANTRY",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "CUBICLE 2",
+	    "description": "Smart choice. Paperwork is good for the soul. Never mind your headache. Just take some delicious, sugar-coated Advil. Yea, there you go. Feeling better? Thought so. Now go on and be the lean mean super efficient office machine you know and love. If you can KEEP IT UP for just another year or two, then you'll really be heading places. Dare you say it? A promot -- no, don't dream -- keep your head down and focus on the task at hand.",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "KEEP IT UP",
+		    "room": "CUBICLE 3",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "PANTRY",
+	    "description": "Nothing kicks you into overdrive like a good pot of coffee. Time to refuel! Be sure to add some soymilk to your brew. You like that, remember? Oh and hey, while you're in here, why don't you catch up on some office gossip. TALK to Alexandra. She knows what's up. Or go BACK TO WORK.",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "BACK TO WORK",
+		    "room": "CUBICLE 3",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "TALK",
+		    "room": "ALEXANDRA CONVO 1",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "ALEXANDRA CONVO 1",
+	    "description": "\"Hey, Alexandra, what's the haps? How are you doin?\"
+
+\"Oh you know, pretty good. I've got an author who's threatening to cancel his contract because I told him we couldn't afford to pay for a third copyeditor.\"
+
+\"Wow, a third one eh. Sounds like a great book. *COUGH* You got it under control?\"
+
+\"No, actually. Not at all. Lucky for me though, my psychiatrist did just up my anti-depressants. She prescribed me some Valium too.\"
+
+\"Living the dream, eh? Well keep up the good work. I've gotta get BACK TO WORK.\"
+
+\"Bye!\"",
+	    "items": ["MILK"],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "BACK TO WORK",
+		    "room": "CUBICLE 3",
+		    "unlock_item": ""
+		}		
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "CUBICLE 3",
+	    "description": "Wow, time goes by fast! You've been working for hours and accomplished so much. Maybe you should go over to your BOSS'S OFFICE and check in with him. He's a great guy and always good for a laugh. Then again, you're on a roll, so why stop now? You could easily GRIND IT OUT for another few hours, and there's always more to do. You don't wanna get lazy, do you?",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "BOSS'S OFFICE",
+		    "room": "BOSS'S OFFICE 1",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "GRIND IT OUT",
+		    "room": "CUBICLE 1",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "BOSS'S OFFICE 1",
+	    "description": "Your boss's office is a war zone strewn with manuscripts that have been covered in scribbles. The walls of the room are hidden by stacks of books that nobody has or will ever read. There is a strong smell in the air, the pungent combination of deoderant and bourbon. Your boss is sitting upright, indian-style in his chair, obsessively typing an email and apparenly unaware of anything else. You can see his eyes are wide-eyed and bloodshot, and his neck occasionally twitches left or right. You aren't sure if you should interrupt him. You aren't even sure if you can interrupt him. Also, you've gotta pee. SAY HEY or go PEE.",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "SAY HEY",
+		    "room": "BOSS'S OFFICE 2",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "PEE",
+		    "room": "RESTROOM",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": ["MILK"]
+	},
+	{
+	    "id": "RESTROOM",
+	    "description": "Standing over the toilet, you realize you should probably go number two. You sit down to do your business and begin to think. You reflect on everything you've been doing over the past four years and try to take stock of it. There's so much, but strangely, you have difficulty putting your finger on any one thing in particular. You sink deeper into thought and are confronted by a disturbing question. Are you doing what you really want to do? Your bowels slowly release and you find yourself in one of those rare moments of perfect clarity. The answer is so simple. YES or NO.",
+	    "items": [],
+	    "points": 0,
+	    "exits": [
+		{
+		    "direction": "YES",
+		    "room": "CUBICLE 1",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "NO",
+		    "room": "BOSS'S OFFICE 3",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "BOSS'S OFFICE 2",
+	    "description": "Your boss spins around. 
+
+\"Behold, man-servant, my empire of dirt!\" 
+
+\"You don't look so good,\" you say.
+
+\"I've been awake for 40 hours straight,\" he says. \"Don't worry, I have speed and booze. Here have a drink.\"
+
+HAVE A DRINK or get BACK TO WORK?",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "HAVE A DRINK",
+		    "room": "BOSS'S OFFICE 4",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "BACK TO WORK",
+		    "room": "CUBICLE 2",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": ["MILK"]
+	},
+	{
+	    "id": "BOSS'S OFFICE 4",
+	    "description": "As you drink and disicuss work, your boss stacks up a tower of manuscripts and books for you take away with you.
+
+The stack grows up and up, but no matter, you're a workhorse. You'll get it done.
+
+\"Another drink?\" your boss asks. 
+
+Have ANOTHER DRINK or BACK TO WORK.",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "ANOTHER DRINK",
+		    "room": "BAR",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "BACK TO WORK",
+		    "room": "CUBICLE 2",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "BAR",
+	    "description": "Wow, that's some strong potion! Two drinks lead to three, then four, and before you know it you're back at home. You've passed out on your bathroom floor. Hah, you rascal, you dirty dog! Best pick yourself up, clean off, and head BACK TO WORK. A new day awaits, except, damn, that pesky bladder...
+
+BACK TO WORK or PEE.",
+	    "items": [],
+	    "points": -10,
+	    "exits": [
+		{
+		    "direction": "BACK TO WORK",
+		    "room": "CUBICLE 1",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "PEE",
+		    "room": "RESTROOM",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "BOSS'S OFFICE 3",
+	    "description": "It all makes sense now. At long last, you understand what's happened to you. You see the cog in the machine you've unwittingly become and know exactly what to do. You go to you computer to arrange logistics. You research, compare prices, and make hard decisions. You consult your beautiful, kind, supremely wise girlfriend. She gives you her full support. You march directly into your boss's office and tell him without reservation, \"I quit. You know I will always love you, but in one month, I will leave here. I am getting out. I am going to Mexico.\"
+
+To your surprise, your boss says, \"Good for you.\" He only adds, \"Are you sure?\"
+
+Well, are you? YES or NO.",
+	    "items": [],
+	    "points": 0,
+	    "exits": [
+		{
+		    "direction": "YES",
+		    "room": "AIRPORT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "NO",
+		    "room": "CUBICLE 1",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "AIRPORT",
+	    "description": "Time passes. Your work continues, but it isn't the same. You are somehow stronger. Each day you take pains to ensure that whoever replaces you will not be responsible for your own loose ends. Your last day finally comes. You feel that you're leaving everything in good order and parting on good terms. You say more than one teary-eyed farewell.
+
+The next day you board a plane. You fly first to Fort Lauderdale before taking a connecting flight to Mexico City. You arrive late. You pass through Customs and Immigration without any problems. You find a taxi stand and show them the address of your hostel.
+
+All seems well but as you continue it becomes clear that the driver does not know where to go. He eventually gets out his GPS. He tries typing the name of your street, but the GPS is confused by his spelling. You enter the information for him. He seems relieved.
+
+You become concerned that perhaps you are being swindled as you drive aimlessly through dark, empty streets. When your driver sees a lone girl on a corner, he groans \"Ay, chicas, two hundred pesos, so beautiful!\"
+
+The GPS finally locks onto your destination, but its directions are useless given all the roadblocks in place from a festival earlier in the day. You circle one abandoned block after another. Eventually, fortunately, you arrive. The driver is frutrated. He tells you to TAKE YOUR STUFF and GET OUT.",
+	    "items": ["STUFF"],
+	    "points": 10,
+	    "exits": [
+		{
+		    "direction": "GET OUT",
+		    "room": "OUTSIDE HOSTEL NIGHT",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "OUTSIDE HOSTEL NIGHT",
+	    "description": "You are standing just outside the hostel. The streets are empty. You are alone. There is a light on inside the building in front of you. Peering through the glass door and security gate just beyond you can see the reception desk at the far end of the hostel's ground floor. There is a friendly looking security guard sitting just behind the gate gesturing for you to ENTER. Alternatively, you can explore and walk down the street, heading SOUTH.",
+	    "items": [],
+	    "points": 10,
+	    "exits": [
+		{
+		    "direction": "ENTER",
+		    "room": "HOSTEL GROUND FLR",
+		    "lock": ""
+		},
+		{
+		    "direction": "DOWN THE STREET",
+		    "room": "ZOCALO",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "HOSTEL GROUND FLR",
+	    "description": "The security guard gives you a welcoming smile. \"Hola!\" he says. \"Hola!\" you say back.
+
+The ground floor is an impressive space -- a beautiful courtyard area that the four floors above all look down upon. The south wall is covered end to end by a massive mural depicting a vast landscape. There are snow-capped mountains in the distance and a small pueblo in the foreground. It almost looks as though you could walk into it. Almost.
+
+To the WEST is the reception desk. To the EAST is the exit onto the street. To the NORTH is a gate leading to the upper floors.",
+	    "items": ["CHESS SET"],
+	    "points": 10,
+	    "exits": [
+		{
+		    "direction": "NORTH",
+		    "room": "STAIRWAY NIGHT",
+		    "unlock_item": "ROOM KEY"
+		},
+		{
+		    "direction": "WEST",
+		    "room": "RECEPTION DESK NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "EAST",
+		    "room": "OUTSIDE HOSTEL NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "MURAL",
+		    "room": "MURAL",
+		    "unlock_item": "ACID TAB"
+		}
+	    ],
+	    "treasure": []
+	}
+    ],
+    "start_room": "Start",
+    "items":
+    [
+	{
+	    "id": "TODO LIST",
+	    "description": "\n- draft Cover Concept Memo for the new paperback version of David E. Chinitz's WHICH SIN TO BEAR?: AUTHENTICITY AND COMPROMISE IN LANGSTONE HUGHES
+- mark corrections and submit to manufacturing (changing \"examines\" on page 12 to \"details\" crucial to future sales)
+- clear permissions for Claggett Wilson paintings -- negotiate final costs down to $300 USD
+- figure out what Jed Rasula's book -- HISOTRY OF A SHIVER: THE SUBLIME IMPUDENCE OF MODERNISM -- is about -- WTF does title mean -- draft flap copy
+- track down revised proofs for LITERATURE OF THE US SOUTH HANDBOOK -- assess copyediting problems -- reassure editors of release in time for MLA -- lie
+- find cover art for P. Adams' CINEMA OF POETRY -- check interior art for options
+- mail manufacturing stock samples to Steimatsky
+- line up peer reviewers for: Mangrum ms on new deal literature, Samuels proposal for race and vision essay collection, Cook ms on film and cognition
+- review final jacket layouts for Gardner's BLACK PRINT UNBOUND, Jaffe's DREAMS OF THE REAL, Watts' ROLAND BARTHES",
+	    "points": -10,
+	    "trs_msg": ""
+	},
+	{
+	    "id": "MILK",
+	    "description": "something to drink, arguably more nutritous than booze",
+	    "points": 100,
+	    "trs_msg": "Yea, your boss probs needs this."
+	},
+	{
+	    "id": "ROOM KEY",
+	    "description": "will get you around to all the places you need to go inside the hostel",
+	    "points": 1,
+	    "trs_msg" : "You probably want to keep this on you so you don't get locked out."
+	},
+	{
+	    "id": "CHESS SET",
+	    "description": "a good way to occupy the mind, or to distract it if need be",
+	    "points": 100,
+	    "trs_msg" : "X loves chess. Good thinkin."
+	},
+	{
+	    "id": "STUFF",
+	    "description": "clothes, a computer, an algorithms textbook",
+	    "points": 100,
+	    "trs_msg" : "Feels good to unload."
+	}
+    ],
+    "start_items": []
+}

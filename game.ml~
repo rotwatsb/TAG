@@ -1,0 +1,258 @@
+#require "yojson"
+
+type room =
+  { description : string;
+    items : string list;
+    points : int;
+    exits : (string * (string * string)) list;
+    treasure : string list;
+  }
+
+type item =
+  { i_description : string;
+    i_points : int
+  }
+
+type player =
+  { room : string;
+    inventory : string list;
+    score : int;
+    turns : int;
+  }
+
+type ('k, 'v) bstree =
+  | Nil
+  | Node of 'k * 'v * ('k, 'v) bstree * ('k, 'v) bstree
+
+let rec bst_lookup k = function
+  | Nil -> raise Not_found
+  | Node (tk, tv, tl, tr) -> if (k = tk) then tv
+			     else if (k < tk) then bst_lookup k tl
+			     else bst_lookup k tr
+
+let rec bst_insert k v = function
+  | Nil -> Node (k, v, Nil, Nil)
+  | Node (tk, tv, tl, tr) -> if (k < tk) then Node (tk, tv, (bst_insert k v tl), tr)
+			     else if (k > tk) then Node (tk, tv, tl, (bst_insert k v tr))
+			     else Node (k, v, tl, tr)
+
+let rec build_exits exit_lists =
+  let rec build_rmexits exits_list =
+    let open Yojson.Basic.Util in
+    match exits_list with
+    | h::t -> (let open Yojson.Basic.Util in
+	       match h with
+	       | (_,d)::(_,r)::(_,u)::_ -> ((String.uppercase (to_string d)),
+					    ((String.uppercase (to_string r)),
+					     (String.uppercase (to_string u))))
+					   ::(build_rmexits t)
+	       | _ -> [])
+    | [] -> [] in
+  match exit_lists with
+  | h::t -> let open Yojson.Basic.Util in
+	    (build_rmexits (filter_assoc h))::(build_exits t)
+  | [] -> []
+
+let build_items json =
+  let open Yojson.Basic.Util in
+  let rec build_items_tree items_tree items_list =
+    match items_list with
+    | h::t -> (match h with
+	       | (_,id)::(_,d)::(_,p)::_ ->
+		  let id' = String.uppercase (to_string id) in
+		  let d' = to_string d in
+		  let p' = to_int p in
+		  build_items_tree (bst_insert id'
+					       {i_description=d';i_points=p'}
+					       items_tree) t
+	       | _ -> Nil)
+    | [] -> items_tree in
+  let items_list = [json] |> filter_member "items" |> flatten |> filter_assoc in
+  build_items_tree Nil items_list
+
+let build_player json =
+  let open Yojson.Basic.Util in
+  let r = String.uppercase ([json] |> filter_member "start_room" |> filter_string |> String.concat "") in
+  let inv = List.map String.uppercase ([json] |> filter_member "start_items" |> flatten |> filter_string) in
+  {room=r;inventory=inv;score=0;turns=0}
+
+  
+let rec build_rooms rooms roomids descriptions items points exits treasures =
+  let open Yojson.Basic.Util in
+  match (roomids, descriptions, items, points, exits, treasures) with
+  | (r::rs, d::ds, i::is, p::ps, e::es, t::ts) ->
+     let room = {description=d;
+		 items=List.map String.uppercase (filter_string i);
+		 points=p;
+		 exits=e;
+		 treasure=List.map String.uppercase (filter_string t)} in
+     build_rooms (bst_insert (String.uppercase r) room rooms) rs ds is ps es ts
+  | _ -> rooms
+
+let init_model game_file =
+  let json = Yojson.Basic.from_file game_file in
+  let open Yojson.Basic.Util in
+  let helper = [json] |> filter_member "rooms" |> flatten in
+  let roomids = helper |> filter_member "id" |> filter_string in
+  let descriptions =  helper |> filter_member "description" |> filter_string in
+  let items =  helper |> filter_member "items" |> filter_list in
+  let points =  helper |> filter_member "points" |> filter_int in
+  let exit_lists =  helper |> filter_member "exits" |> filter_list in
+  let exits = build_exits exit_lists in
+  let treasures =  helper |> filter_member "treasure" |> filter_list in
+  (build_rooms Nil roomids descriptions items points exits treasures,
+   build_items json,
+   build_player json)
+
+let inform info =
+  print_string info;
+  print_newline ()
+
+let inform_items items_list items_tree =
+  let rec inform_items_helper items_list items_tree =
+    match items_list with
+    | (h::t) -> inform (String.concat " " [h; "-"; (bst_lookup h items_tree).i_description]); inform_items_helper t items_tree
+    | [] -> () in
+  inform_items_helper items_list items_tree
+		      
+
+let rec print_list = function
+  | h::t -> (inform h); print_list t
+  | [] -> ()
+
+let rec act_on command_list model =
+  let actions = [("LOOK", look);
+		 ("TAKE", take);
+		 ("DROP", drop);
+		 ("INV", inv);
+		 ("INVENTORY", inv);
+		 ("SCORE", score);
+		 ("TURN", turn);
+		 ("GO", go)] in
+  match command_list with
+  | (h::t) -> (try ((List.assoc h actions) t model) with
+		 Not_found -> (try go command_list model with
+				 Not_found -> bad_command command_list model))
+  | [] -> model
+
+and look command_list model =
+  match (command_list, model) with
+  | (_,(rms,itms,plr)) ->
+     let rm = bst_lookup plr.room rms in
+     inform rm.description;
+     if (List.length rm.items > 0)
+     then (inform "\nThe room contains:";
+	   inform_items rm.items itms;)
+     else ();
+     act_on command_list model
+
+and take command_list model =
+  match (command_list, model) with
+  | ((h::t),(rms,itms,plr)) ->
+     (try let rm = (bst_lookup plr.room rms) in
+          let z = List.find (fun x -> x=h) rm.items in
+	  let rm_items' = List.filter (fun x -> x!=z) rm.items in
+	  let plr_inv' = z::plr.inventory in
+	  let score' = try (let y = List.find (fun x -> x=z) rm.treasure in
+			    plr.score - (bst_lookup z itms).i_points)
+		       with Not_found -> plr.score in
+	  let plr' = {room=plr.room;
+		      inventory=plr_inv';
+		      score=score';
+		      turns=plr.turns + 1} in
+	  let rm' = {description=rm.description;
+		     items=rm_items';
+		     points=rm.points;
+		     exits=rm.exits;
+		     treasure=rm.treasure} in
+	  let rms' = (bst_insert plr.room rm' rms) in
+	  inform (String.concat " " [z;"has been added to your inventory."]);
+	  take t (rms',itms,plr') 
+      with Not_found -> (try take ((String.concat " " [h; (List.hd t)])::(List.tl t)) model
+			 with _ -> act_on command_list model))
+  | ([],(rms,itms,plr)) -> model
+     
+
+and drop command_list model =
+  match (command_list, model) with
+  | ((h::t),(rms,itms,plr)) ->
+     (try let rm = (bst_lookup plr.room rms) in
+          let z = List.find (fun x -> x=h) plr.inventory in
+	  let rm_items' = z::rm.items in
+	  let plr_inv' = List.filter (fun x -> x!=z) plr.inventory in
+	  let plr_score' = try (let y = List.find (fun x -> x=z) rm.treasure in
+				plr.score + (bst_lookup z itms).i_points)
+			   with Not_found -> plr.score in
+	  let plr'= {room=plr.room;
+		     inventory=plr_inv';
+		     score=plr_score';
+		     turns=plr.turns + 1} in
+	  let rm' = {description=rm.description;
+		     items=rm_items';
+		     points=rm.points;
+		     exits=rm.exits;
+		     treasure=rm.treasure} in
+	  let rms' = (bst_insert plr.room rm' rms) in
+	  inform (String.concat " " [z; "has been dropped from your inventory."]);
+	  drop t (rms',itms,plr') 
+      with Not_found -> (try drop ((String.concat " " [h; (List.hd t)])::(List.tl t)) model
+			 with _ -> act_on command_list model))
+  | ([],_) -> model
+
+and score command_list model =
+  match (command_list, model) with
+  | (_,(_,_,plr)) ->
+     inform (String.concat " " ["You've earned"; string_of_int plr.score; "ponts so far."]);
+     act_on command_list model
+
+and turn command_list model =
+  match (command_list, model) with
+  | (_,(_,_,plr)) ->
+     inform (String.concat " " ["You've taken"; string_of_int plr.turns; "turns."]);
+     act_on command_list model
+
+and inv command_list model =
+  match (command_list, model) with
+  | (_,(_,itms,plr)) ->
+     inform_items plr.inventory itms;
+     act_on command_list model
+
+and go command_list model =
+  match (command_list, model) with
+  | ((h::t),(rms,itms,plr)) ->
+     let exts = (bst_lookup plr.room rms).exits in
+     (try let (ext_rm_id,unlock_item) = List.assoc h exts in
+	  let rm = bst_lookup ext_rm_id rms in
+	  let rm_points = rm.points in
+	  let rm' = {description=rm.description;
+		     items=rm.items;
+		     points=0;
+		     exits=rm.exits;
+		     treasure=rm.treasure} in
+	  let plr' = {room=ext_rm_id;
+		      inventory=plr.inventory;
+		      score=plr.score + rm_points;
+		      turns=plr.turns + 1} in
+	  let rms' = bst_insert ext_rm_id rm' rms in
+	  if ((unlock_item = "") ||
+		(List.exists (fun x -> x=unlock_item) plr.inventory)) then
+	    act_on ("LOOK"::t) (rms',itms,plr')
+	  else (inform "You don't have what you need to go there.";
+		act_on t model)	  
+      with Not_found -> (try go ((String.concat " " [h; (List.hd t)])::(List.tl t)) model
+			 with _ -> model))
+  | ([],_) -> model				  
+
+and bad_command command_list model =
+  model
+
+let rec repl model =
+  let s = print_newline ();
+	  print_string "Now what? ... ";
+	  read_line () in
+  if s = "quit" then
+    ()
+  else
+    repl (act_on (Str.split (Str.regexp "[ \t]+") (String.uppercase s)) model)
+
+let () = repl (init_model "/home/steve/ocaml/TAG/mch.json")
