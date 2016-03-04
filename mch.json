@@ -411,7 +411,7 @@ Whatever that means. Head EAST to return to the main area of the ground floor.",
 	    "id": "CHESS SET",
 	    "description": "a good way to occupy the mind, or to distract it if need be",
 	    "points": 100,
-	    "trs_msg" : "Te security guard loves chess. Good thinkin."
+	    "trs_msg" : "The security guard loves chess. Good thinkin."
 	},
 	{
 	    "id": "STUFF",
