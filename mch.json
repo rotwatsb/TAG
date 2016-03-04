@@ -280,7 +280,7 @@ The GPS finally locks onto your destination, but its directions are useless give
 	    "exits": [
 		{
 		    "direction": "ENTER",
-		    "room": "HOSTEL GROUND FLR",
+		    "room": "HOSTEL GROUND FLR NIGHT",
 		    "lock": ""
 		},
 		{
@@ -292,10 +292,10 @@ The GPS finally locks onto your destination, but its directions are useless give
 	    "treasure": []
 	},
 	{
-	    "id": "HOSTEL GROUND FLR",
+	    "id": "HOSTEL GROUND FLR NIGHT",
 	    "description": "The security guard gives you a welcoming smile. \"Hola!\" he says. \"Hola!\" you say back.
 
-The ground floor is an impressive space -- a beautiful courtyard area that the four floors above all look down upon. The south wall is covered end to end by a massive mural depicting a vast landscape. There are snow-capped mountains in the distance and a small pueblo in the foreground. It almost looks as though you could walk into it. Almost.
+The ground floor is an impressive space -- a beautiful courtyard area that the four floors above all look down upon. The south wall is covered end to end by a massive mural depicting a vast landscape. There are snow-capped mountains in the distance and an inviting looking pueblo in the foreground. It almost looks as though you could walk into it. Almost.
 
 To the WEST is the reception desk. To the EAST is the exit onto the street. To the NORTH is a gate leading to the upper floors.",
 	    "items": ["CHESS SET"],
@@ -303,7 +303,7 @@ To the WEST is the reception desk. To the EAST is the exit onto the street. To t
 	    "exits": [
 		{
 		    "direction": "NORTH",
-		    "room": "STAIRWAY NIGHT",
+		    "room": "STAIRWAY 0 NIGHT",
 		    "unlock_item": "ROOM KEY"
 		},
 		{
@@ -323,9 +323,62 @@ To the WEST is the reception desk. To the EAST is the exit onto the street. To t
 		}
 	    ],
 	    "treasure": []
+	},
+	{
+	    "id": "RECEPTION DESK NIGHT",
+	    "description": "Behind the reception desk is a scruffy young man. \"Welcome to the hossel,\" he slurs. \"TAKE your key and sheets and headub. Top floor.\"
+
+There are more than a few empty bottles pushed aside on the desk.
+
+\"And watch the water!\" he blurts.
+
+Whatever that means. Head EAST to return to the main area of the ground floor.",
+	    "items": ["SHEETS", "ROOM KEY"],
+	    "points": 50,
+	    "exits": [
+		{
+		    "direction": "EAST",
+		    "room": "HOSTEL GROUND FLR NIGHT",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "MURAL",
+	    "description": "Are you inside a mural? Maybe you should BACK OUT.",
+	    "items": [],
+	    "points": 200,
+	    "exits": [
+		{
+		    "direction": "BACK OUT",
+		    "room": "HOSTEL GROUND FLR NIGHT",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": ["ACID TAB"]
+	},
+	{
+	    "id": "STAIRWAY 0 NIGHT",
+	    "description": "The stairs up are wide, smooth, and immaculately clean. There is a small garbage area immediately to your left. Go UP to the first landing or head OUT to the ground floor.",
+	    "items": [],
+	    "points": 50,
+	    "exits": [
+		{
+		    "direction": "UP",
+		    "room": "HOSTEL STAIRWAY 1 NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "OUT",
+		    "room": "HOSTEL GROUND FLR NIGHT",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
 	}
     ],
-    "start_room": "Start",
+    "start_room": "HOSTEL GROUND FLR NIGHT",
     "items":
     [
 	{
@@ -350,7 +403,7 @@ To the WEST is the reception desk. To the EAST is the exit onto the street. To t
 	},
 	{
 	    "id": "ROOM KEY",
-	    "description": "will get you around to all the places you need to go inside the hostel",
+	    "description": "will get you around inside the hostel",
 	    "points": 1,
 	    "trs_msg" : "You probably want to keep this on you so you don't get locked out."
 	},
@@ -358,13 +411,25 @@ To the WEST is the reception desk. To the EAST is the exit onto the street. To t
 	    "id": "CHESS SET",
 	    "description": "a good way to occupy the mind, or to distract it if need be",
 	    "points": 100,
-	    "trs_msg" : "X loves chess. Good thinkin."
+	    "trs_msg" : "Te security guard loves chess. Good thinkin."
 	},
 	{
 	    "id": "STUFF",
 	    "description": "clothes, a computer, an algorithms textbook",
 	    "points": 100,
 	    "trs_msg" : "Feels good to unload."
+	},
+	{
+	    "id": "SHEETS",
+	    "description": "clean enough, a few old stains but that's history for ya",
+	    "points": 100,
+	    "trs_msg" : "Sleep away!"
+	},
+	{
+	    "id": "ACID TAB",
+	    "description": "make fantasy a reality",
+	    "points": 500,
+	    "trs_msg" : "Whoa."
 	}
     ],
     "start_items": []
