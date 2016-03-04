@@ -378,7 +378,7 @@ Whatever that means. Head EAST to return to the main area of the ground floor.",
 	    "treasure": []
 	}
     ],
-    "start_room": "HOSTEL GROUND FLR NIGHT",
+    "start_room": "Start",
     "items":
     [
 	{
