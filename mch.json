@@ -81,7 +81,7 @@ If you need some coffee, head to the PANTRY.",
 
 \"Wow, a third one eh. Sounds like a great book. *COUGH* You got it under control?\"
 
-\"No, actually. Not at all. Lucky for me though, my psychiatrist just re-upped my anti-depressants. She prescribed some Valium too.\"
+\"No, actually. Not at all. Lucky for me my psychiatrist just re-upped my anti-depressants. She prescribed some Valium too.\"
 
 \"Living the dream, eh? Well keep up the good work. I've gotta get BACK TO WORK.\"
 
@@ -137,7 +137,7 @@ If you need some coffee, head to the PANTRY.",
 	},
 	{
 	    "id": "RESTROOM",
-	    "description": "Standing over the toilet, you realize you should probably go number two. You sit down to do your business and begin to think. You reflect on everything you've been doing over the past four years and try to take stock of it. There's so much, but strangely, you have difficulty putting your finger on any one thing in particular. You sink deeper into thought and are confronted by a disturbing question. Are you doing what you really want to do? Your bowels slowly release and you find yourself in one of those rare moments of perfect clarity. The answer is so simple. YES or NO.",
+	    "description": "Standing over the toilet, you realize you should probably go number two. You sit down to do your business and begin to think. You reflect on everything you've been doing over the past four years and try to take stock of it. There's so much, but strangely, you have difficulty putting your finger on any one thing in particular. You sink deeper into thought and are confronted by a disturbing question. Are you doing what you really want? Your bowels slowly release and you find yourself in one of those rare moments of perfect clarity. The answer is so simple. YES or NO.",
 	    "items": [],
 	    "points": 0,
 	    "exits": [
@@ -366,12 +366,101 @@ Whatever that means. Head EAST to return to the main area of the ground floor.",
 	    "exits": [
 		{
 		    "direction": "UP",
-		    "room": "HOSTEL STAIRWAY 1 NIGHT",
+		    "room": "STAIRWAY 1 NIGHT",
 		    "unlock_item": ""
 		},
 		{
 		    "direction": "OUT",
 		    "room": "HOSTEL GROUND FLR NIGHT",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "STAIRWAY 1 NIGHT",
+	    "description": "The first floor landing doubles as a lounge and study area. There are two computers available. Both are in use. An older man with dreadlocks sits closest, shirtless and exposing his belly. He is grumbling at the computer screen in some alien language, speaking to nobody in particular. At the opposite end of the room is a girl with a shaved head, keeping her distance.
+
+Head UP to the second floor, or go back DOWN. You can also make your way through the lounge to the KITCHEN.",
+	    "items": [],
+	    "points": 50,
+	    "exits": [
+		{
+		    "direction": "UP",
+		    "room": "STAIRWAY 2 NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "DOWN",
+		    "room": "STAIRWAY 0 NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "KITCHEN",
+		    "room": "KITCHEN",
+		    "unlock_item": ""
+		}		
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "KITCHEN",
+	    "description": "The ktichen has three areas. There is a sink and counter space for cooking and two refrigerators for storing food. A device attached to the sink catches your eye, because it looks like a control panel taken off a jumbo jet. There are about twenty switches and equally many blinking lights. Adjacent to this prep area is a square, open serving area. All that remains there now is large jug of water with a sign posted above reading, \"Sírvete!\" The back of the kitchen opens out into a spacious dining area, and at the very end is a bathroom.
+
+Go BACK to the stairway, or wander over to that BATHROOM.",
+	    "items": ["DRINKING WATER"],
+	    "points": 50,
+	    "exits": [
+		{
+		    "direction": "BACK",
+		    "room": "STAIRWAY 1 NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "BATHROOM",
+		    "room": "KITCHEN BATHROOM",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "KITCHEN BATHROOM",
+	    "description": "You stick your head into the men's room. One toilet is out of order. The other looks usable. There is a fully functional urinal. You turn the knob on the sink but barely a trickle runs out. Yikes!
+
+Head BACK to the kitchen.",
+	    "items": [],
+	    "points": 50,
+	    "exits": [
+		{
+		    "direction": "BACK",
+		    "room": "KITCHEN",
+		    "unlock_item": ""
+		}
+	    ],
+	    "treasure": []
+	},
+	{
+	    "id": "STAIRWAY 2 NIGHT",
+	    "description": "The second floor of the hostel has another lounge area. There are some guys relaxing and drinking beers near a muted TV replaying a soccer game. Beyond them are the men's showers and main bathroom. At the other end of the floor are four dormitories, numbers 2-1, 2-2, 2-3, and 2-4. The doors are locked.
+
+TALK to the guys. Explore the SHOWERS. Continue UP to the third floor.",
+	    "items": [],
+	    "points": 50,
+	    "exits": [
+		{
+		    "direction": "TALK",
+		    "room": "COUCHES NIGHT",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "SHOWERS",
+		    "room": "MEN'S MAIN BATHROOM",
+		    "unlock_item": ""
+		},
+		{
+		    "direction": "UP",
+		    "room": "STAIRWAY 3 NIGHT",
 		    "unlock_item": ""
 		}
 	    ],
@@ -430,6 +519,12 @@ Whatever that means. Head EAST to return to the main area of the ground floor.",
 	    "description": "make fantasy a reality",
 	    "points": 500,
 	    "trs_msg" : "Whoa."
+	},
+	{
+	    "id": "DRINKING WATER",
+	    "description": "like liquid gold, but better for your health",
+	    "points": 50,
+	    "trs_msg" : "Dr. Robert Marte is eternally grateful. The water has brought him back from the brink."
 	}
     ],
     "start_items": []
